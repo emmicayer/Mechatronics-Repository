@@ -1,0 +1,9 @@
+
+
+import pyb
+vcp = pyb.USB_VCP()
+while True:
+    if vcp.any():
+        b = vcp.read(1)
+        if b:
+            vcp.write(b"You pressed: " + b + b"\r\n")

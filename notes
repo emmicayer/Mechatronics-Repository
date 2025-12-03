@@ -1,0 +1,292 @@
+
+    
+#effort = s_mot_eff_L.get()
+
+# CONTROLLER?
+
+class PIDController:
+    def __init__(self, Kp, Ki, Kd, setpoint=0):
+        self.Kp = Kp
+        self.Ki = Ki
+        self.Kd = Kd
+        self.setpoint = setpoint
+        self.integral = 0
+        self.prev_error = 0
+        self.prev_time = None
+
+    def update(self, current_position, current_time):
+        if self.prev_time is None:
+            self.prev_time = current_time
+            return 0  # No output on first call
+
+        error = self.setpoint - current_position
+        dt = current_time - self.prev_time
+
+        # Proportional term
+        P_term = self.Kp * error
+
+        # Integral term
+        self.integral += error * dt
+        I_term = self.Ki * self.integral
+
+        # Derivative term
+        derivative = (error - self.prev_error) / dt if dt > 0 else 0
+        D_term = self.Kd * derivative
+
+        # Store for next iteration
+        self.prev_error = error
+        self.prev_time = current_time
+
+        # Calculate control output
+        output = P_term + I_term + D_term
+        return output
+
+    def set_setpoint(self, new_setpoint):
+        self.setpoint = new_setpoint
+        self.integral = 0  # Reset integral term when setpoint changes
+        self.prev_error = 0
+
+
+# TESTING SEQUENCE ??????
+def enc_print():
+	print(f"Left Pos: {enc_left.get_position()}, Right Pos: {enc_right.get_position()}")
+     
+def vel_print():
+     print(f"Left Vel: {enc_left.get_velocity()}, Right Vel: {enc_right.get_velocity()}")
+
+flag = False
+
+def tim_cb(tim):
+    global flag
+    flag = True  # Initially set to true
+
+tim = Timer(4, freq=50)  # 50 Hz = every 20 ms
+tim.callback(tim_cb)
+
+try:
+    print("Starting testing...")
+    mot_left.enable()
+    mot_right.enable()
+    print("Motors enabled (should NOT spin yet).")
+
+    # Test 1: Forward spin
+    print("Testing motion...")
+    mot_left.set_effort(10)
+    mot_right.set_effort(10)
+    sleep_ms(1000)
+    mot_left.set_effort(0)
+    mot_right.set_effort(0)
+
+    mot_left.set_effort(20)
+    mot_right.set_effort(20)
+    sleep_ms(1000)
+    mot_left.set_effort(0)
+    mot_right.set_effort(0)
+
+    mot_left.set_effort(30)
+    mot_right.set_effort(30)
+    sleep_ms(1000)
+    mot_left.set_effort(0)
+    mot_right.set_effort(0)
+
+    mot_left.set_effort(40)
+    mot_right.set_effort(40)
+    sleep_ms(1000)
+    mot_left.set_effort(0)
+    mot_right.set_effort(0)
+
+    mot_left.set_effort(50)
+    mot_right.set_effort(50)
+    sleep_ms(1000)
+    mot_left.set_effort(0)
+    mot_right.set_effort(0)
+
+    mot_left.set_effort(60)
+    mot_right.set_effort(60)
+    sleep_ms(1000)
+    mot_left.set_effort(0)
+    mot_right.set_effort(0)
+
+    mot_left.set_effort(70)
+    mot_right.set_effort(70)
+    sleep_ms(1000)
+    mot_left.set_effort(0)
+    mot_right.set_effort(0)
+
+    mot_left.set_effort(80)
+    mot_right.set_effort(80)
+    sleep_ms(1000)
+    mot_left.set_effort(0)
+    mot_right.set_effort(0)
+
+    mot_left.set_effort(90)
+    mot_right.set_effort(90)
+    sleep_ms(1000)
+    mot_left.set_effort(0)
+    mot_right.set_effort(0)
+
+    mot_left.set_effort(100)
+    mot_right.set_effort(100)
+    sleep_ms(1000)
+    mot_left.set_effort(0)
+    mot_right.set_effort(0)
+
+    while True:
+        if flag:
+            enc_left.update()
+            enc_right.update()
+            enc_print()
+            vel_print()
+            flag = False
+
+except KeyboardInterrupt:                   # ctrl+c
+    print("Program interrupted by user.")
+    mot_left.set_effort(0)
+    mot_right.set_effort(0)
+    mot_left.disable()
+    mot_right.disable()
+    tim.deinit()  
+except Exception as e:
+    print("Error:", e)
+    mot_left.set_effort(0)
+    mot_right.set_effort(0)
+    mot_left.disable()
+    mot_right.disable()
+    tim.deinit()
+
+
+
+
+# FOR CONTROL TASK?
+    
+
+#if ______:
+#     MotorFlag == 0                # sets data collection state
+
+
+# USING A SHARE
+# def encoder_task():
+#    while True:
+#        position = encoder.read()
+#        encoder_pos.put(position)    # store encoder reading
+#        yield
+
+# def controller_task():
+#     while True:
+#         pos = encoder_pos.get()      # read latest position
+#         error = target - pos
+#         duty = 0.01 * error
+#         motor_command.put(duty)      # send command to motor
+#         yield
+
+
+# USING A QUEUE
+# def data_logger_task():
+#     while True:
+#         temperature = sensor.read()
+#         temp_log.put(temperature)     # add new data point
+#         yield
+
+# def print_task():
+#     while not temp_log.empty():
+#         print("Temp:", temp_log.get())  # read oldest entry
+#         yield
+
+
+
+
+
+
+# the below code is the main file from the motor encoder lab 0x01. we need to use this code in our new main as well as task 3, not sure where else
+mot_left = Motor(Pin.cpu.B1, Pin.cpu.B14, Pin.cpu.B15, Timer(3, freq = 1000), 4)
+mot_right = Motor(Pin.cpu.B0, Pin.cpu.C3, Pin.cpu.C2, Timer(3, freq = 1000), 3)
+enc_left = Encoder(Timer(5, freq = 1000), Pin.cpu.A0, Pin.cpu.A1)
+enc_right = Encoder(Timer(1, freq = 1000), Pin.cpu.A8, Pin.cpu.A9)
+
+def enc_print():
+	print(f"Left Pos: {enc_left.get_position()}, Right Pos: {enc_right.get_position()}")
+     
+def vel_print():
+     print(f"Left Vel: {enc_left.get_velocity()}, Right Vel: {enc_right.get_velocity()}")
+
+flag = False
+
+def tim_cb(tim):
+    global flag
+    flag = True  # Initially set to true
+
+tim = Timer(4, freq=50)  # 50 Hz = every 20 ms
+tim.callback(tim_cb)
+
+try:
+    print("Starting testing...")
+    mot_left.enable()
+    mot_right.enable()
+    print("Motors enabled (should NOT spin yet).")
+
+    # Test 1: Forward spin
+    print("Testing left forward motion...")
+    mot_left.set_effort(40)
+    sleep_ms(1000)
+    mot_left.set_effort(0)
+
+    print("Testing right forward motion...")
+    mot_right.set_effort(40)
+    sleep_ms(1000)
+    mot_right.set_effort(0)
+
+    print("Testing both forward motion...")
+    mot_left.set_effort(40)
+    mot_right.set_effort(40)
+    sleep_ms(1000)
+    
+    # Test 2: Stop
+    mot_left.set_effort(0)
+    mot_right.set_effort(0)
+    sleep_ms(500)
+
+    # Test 3: Reverse spin
+    print("Testing left reverse motion...")
+    mot_left.set_effort(-40)
+    sleep_ms(1000)
+    mot_left.set_effort(0)
+
+    print("Testing right reverse motion...")
+    mot_right.set_effort(-40)
+    sleep_ms(1000)
+    mot_right.set_effort(0)
+
+    print("Testing both reverse motion...")
+    mot_left.set_effort(-40)
+    mot_right.set_effort(-40)
+    sleep_ms(1000)
+
+    # Test 4: Stop again
+    mot_left.set_effort(0)
+    mot_right.set_effort(0)
+
+    while True:
+        if flag:
+            enc_left.update()
+            enc_right.update()
+            enc_print()
+            vel_print()
+            flag = False
+
+except KeyboardInterrupt:                   # ctrl+c
+    print("Program interrupted by user.")
+    mot_left.set_effort(0)
+    mot_right.set_effort(0)
+    mot_left.disable()
+    mot_right.disable()
+    tim.deinit()  
+except Exception as e:
+    print("Error:", e)
+    mot_left.set_effort(0)
+    mot_right.set_effort(0)
+    mot_left.disable()
+    mot_right.disable()
+    tim.deinit()
+
+
+

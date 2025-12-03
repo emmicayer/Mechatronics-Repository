@@ -1,0 +1,128 @@
+import pyb
+
+# TASK 1 - user input interaction
+def UserInput(shares):
+    s_mot_cmd, s_mot_eff_R, s_mot_eff_L, s_new_setpoint_L, s_new_setpoint_R = shares
+    vcp = pyb.USB_VCP()  # virtual com port
+    state = 1
+
+    DEBUG = True         # <-- toggle this to enable/disable debug printing
+
+    def dbg(msg):
+        if DEBUG:
+            try:
+                vcp.write(("[UI] " + msg + "\r\n").encode())
+            except:
+                pass
+
+    help_txt = (b"\r\nCommands:\r\n"
+            b"  g  : run forward step test\r\n"
+            b"  s  : stop forward step test\r\n"
+            b"  e  : select motor effort\r\n"
+            b"  r  : set right motor effort\r\n"
+            b"  l  : set left motor effort\r\n"
+            b"  0-9, t  : specify motor effort\r\n"
+            b"  d  : toggle debug on/off\r\n"
+            b"  v  : show current efforts and mot_cmd\r\n"
+            b"\r\n")
+    vcp.write(help_txt)
+
+    def read_char():
+        if vcp.any():
+            b = vcp.read(1)
+            if b:
+                try:
+                    ch = b.decode()
+                    if DEBUG and ch not in ['\r', '\n']:
+                        dbg("read_char() -> '{}'".format(ch))
+                    return ch
+                except:
+                    return 'z'         # to catch errors
+        else:
+            return 'p'
+
+    while True:
+
+        if state == 1:                     # wait for command
+            char = read_char()
+            if char == 'e':                # if char e is pressed send to state 2 (mot eff set state)
+                dbg("state 1 -> 2 (effort menu)")
+                state = 2
+            elif char == 'g':              # if char g is pressed send to state 3 (go state)
+                dbg("Go pressed: s_mot_cmd=1.0")
+                state = 5
+            elif char == 's':
+                dbg("Stop pressed: s_mot_cmd=0.0")
+                state = 6
+            elif char == 'd':
+                DEBUG = not DEBUG
+                msg = "[UI] DEBUG = {}\r\n".format(DEBUG)
+                vcp.write(msg.encode())
+            elif char == 'v':
+                msg = "[UI] mot_cmd={:.1f}, L_eff={:.1f}, R_eff={:.1f}\r\n".format(
+                    s_mot_cmd.get(), s_mot_eff_L.get(), s_mot_eff_R.get()
+                )
+                vcp.write(msg.encode())
+            elif char == 'z':              # to catch errors
+                vcp.write(b"[UI] read_char failed\r\n")
+            yield 0
+
+        elif state == 2:                                # motor effort state
+            char = read_char()
+            if char == 'r':
+                dbg("state 2 -> 3 (right effort)")
+                state = 3
+            elif char == 'l':
+                dbg("state 2 -> 4 (left effort)")
+                state = 4
+            elif char is not None and char != 'p':
+                dbg("leaving effort menu -> state 1")
+                state = 1
+            yield 0
+
+        elif state == 3:                                        # Right motor effort state
+            char = read_char()
+            if char in '0123456789t':
+                table = {'0':0,'1':10,'2':20,'3':30,'4':40,'5':50,'6':60,'7':70,'8':80,'9':90,'t':100}
+                val = float(table[char])
+                s_mot_eff_R.put(val)
+                dbg("Set Right Effort -> {:.1f}".format(val))
+                state = 1
+            elif char in ('p', '\r', '\n'):  # no key / newline: stay here
+                pass
+            elif char == 'x':
+                dbg("Right effort canceled")
+                state = 1
+            yield 0
+
+        elif state == 4:  # Left motor effort state
+            char = read_char()
+            if char in '0123456789t':
+                table = {'0':0,'1':10,'2':20,'3':30,'4':40,'5':50,'6':60,'7':70,'8':80,'9':90,'t':100}
+                val = float(table[char])
+                s_mot_eff_L.put(val)
+                dbg("Set Left Effort -> {:.1f}".format(val))
+                state = 1
+            elif char in ('p', '\r', '\n'):  # no key / newline: stay here
+                pass
+            elif char == 'x':
+                dbg("Left effort canceled")
+                state = 1
+            yield 0
+
+        elif state == 5:                              # automated testing loop through 0.0 to 100.0 speeds  
+            s_mot_cmd.put(1.0)   
+            state = 1
+
+
+            s_new_setpoint_L.put(0.0009)
+            s_new_setpoint_R.put(0.0009)
+
+
+            # s_mot_eff_L.put(0.0)
+            yield 0 
+
+        elif state == 6:           
+            s_mot_cmd.put(0.0)                        # 0.0 command indicates motor to stop
+            state = 1
+            yield 0
