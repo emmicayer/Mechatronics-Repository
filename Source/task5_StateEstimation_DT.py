@@ -1,3 +1,25 @@
+## @file task5_StateEstimation_DT.py
+#  @brief Discrete-time state estimation task using a linear observer model to
+#  estimate forward velocity, yaw rate, and heading from encoder and IMU data.
+#
+#  This task implements a discrete observer, updated at each scheduler
+#  cycle, using precomputed Ad and Bd matrices derived from a MATLAB c2d model.
+#  It reads:
+#     • Motor input voltages (u) from the input queue
+#     • Wheel displacements and IMU measurements (y) from the measurement queue
+#
+#  Using these, it computes:
+#     • Estimated forward velocity
+#     • Estimated yaw rate
+#     • Integrated heading (theta)
+#  These are published to shared variables for use by navigation, diagnostics,
+#  and higher-level control.
+#
+#  The task gracefully handles missing data, automatically computes sampling
+#  intervals using `micros()`, and prints debug information periodically. It
+#  runs only while the robot is active, yielding often to coexist with other
+#  scheduler tasks.
+
 
 import pyb
 from ulab import numpy as np

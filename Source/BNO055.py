@@ -1,3 +1,15 @@
+## @file BNO055.py
+#  @brief Driver class for the BNO055 IMU, providing access to Euler angles,
+#  gyro rates, and calibration data over I2C.
+#
+#  This module wraps the BNO055 sensor registers and operation modes, handling
+#  initialization, chip-ID verification, and mode changes. It includes methods
+#  to:
+#    • Read fused Euler angles (heading, roll, pitch) in radians
+#    • Read angular velocity (gyro x/y/z) in rad/s
+#    • Query calibration status
+#    • Read and write calibration coefficient blocks
+
 from pyb import I2C, delay
 import struct
 

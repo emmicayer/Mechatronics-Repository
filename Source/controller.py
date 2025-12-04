@@ -1,3 +1,18 @@
+## @file controller.py
+#  @brief General-purpose PID controller class with automatic
+#  time-step computation.
+#
+#  This module defines the Controller class that implements a standard
+#  proportional–integral–derivative (PID) controller. It:
+#    • Tracks a configurable setpoint
+#    • Computes error-based control output on each `update()` call
+#    • Uses microsecond timestamps to derive dt automatically
+#    • Clamps the control signal to user-specified limits
+#    • Provides methods to change the setpoint and reset internal state
+#
+#  Designed for use in real-time embedded control loops (e.g., motor speed
+#  regulation) on Pyboard-based systems.
+
 from pyb import Pin, Timer
 from time import ticks_us, ticks_diff  # Use to get dt value in update()
 

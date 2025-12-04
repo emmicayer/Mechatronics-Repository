@@ -1,6 +1,18 @@
+## @file line_sensor.py
+#  @brief Reflectance line sensor array driver with calibration, filtering, and
+#  line position estimation.
+#
+#  This module implements the LineSensor class that manages an array of ADC-
+#  based reflective sensors. It:
+#    • Configures multiple ADC channels for the provided pins
+#    • Supports oversampling and exponential moving average (EMA) filtering
+#    • Calibrates sensor responses for white and black surfaces
+#    • Returns normalized readings (0–1000) for each sensor
+#    • Computes the line centroid position in millimeters and overall line
+#      “strength” for line-following control
+#
+
 from pyb import Pin, ADC, Timer
-
-
 
 class LineSensor:
         def __init__(self, adc_pins, pitch=4.0, oversample=4, ema=0.3):                # pitch is in mm

@@ -1,3 +1,14 @@
+## @file encoder.py
+#  @brief Quadrature encoder interface using a timer in encoder mode to track
+#  wheel position and velocity.
+#
+#  This module defines the Encoder class that configures a hardware timer in
+#  quadrature (ENC_A/ENC_B) mode and provides:
+#    • Continuous accumulation of encoder position (with overflow handling)
+#    • Measurement of incremental counts and time between updates
+#    • Methods to return current position and velocity
+#    • A `zero()` function to reset position and internal counters
+
 from pyb import Pin, Timer
 from time import ticks_us, ticks_diff  # Use to get dt value in update()
 

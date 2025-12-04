@@ -1,3 +1,18 @@
+## @file PC_script.py
+#  @brief Host-side Python script for reading CSV data (e.g., from PuTTY logs)
+#  and plotting motor position and velocity versus time.
+#
+#  This script:
+#    • Loads a CSV file containing time, position, and velocity measurements for
+#      left and right motors
+#    • Parses and converts raw counts into physical units (radians and rad/ms)
+#    • Rejects malformed or commented lines
+#    • Creates and saves four plots: left position, left velocity, right
+#      position, and right velocity as functions of time
+#
+#  It is intended to run on a PC to visualize data collected from a microcontroller
+#  over a serial terminal.
+
 import time
 from matplotlib import pyplot as plt
 import subprocess

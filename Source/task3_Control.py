@@ -1,3 +1,26 @@
+## @file task3_Control.py
+#  @brief Closed-loop motor control task implementing left and right wheel PID
+#  controllers, encoder processing, and optional line-following steering
+#  adjustments.
+#
+#  This file sets up motor drivers, encoders, PID controllers, and a line sensor
+#  array. It provides two main tasks, `run_L` and `run_R`, which independently
+#  control each wheel in a cooperative multitasking environment. Each task:
+#
+#    • Enables/disables its motor based on the global motor command signal
+#    • Reads encoder position and velocity to update shared measurement values
+#    • Runs a velocity PID loop to drive the wheel toward its commanded setpoint
+#    • Publishes motor effort outputs for use by logging and state estimation
+#    • Monitors bump sensors to immediately stop the motors for safety
+#
+#  The file also incorporates line-sensor calibration and a steering PID
+#  controller. When enabled, this steering loop adjusts left/right setpoints
+#  to maintain the robot centered over a detected line.
+#
+#  These control tasks execute continuously while the robot is active, using
+#  frequent yields to integrate seamlessly with the rest of the scheduler.
+
+
 import pyb
 from pyb import Timer, Pin
 from motor import Motor

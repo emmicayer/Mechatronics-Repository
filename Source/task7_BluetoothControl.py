@@ -1,3 +1,24 @@
+## @file task7_BluetoothControl.py
+#  @brief Bluetooth command and telemetry task for controlling the robot via a
+#  UART connection and receiving real-time status updates. This replaces the user interface in User_Input
+#  when Bluetooth is in use. 
+#
+#  This task processes incoming text-based commands sent over Bluetooth and
+#  updates shared variables accordingly. Supported functions include:
+#     • Starting and stopping the robot (GO / STOP)
+#     • Setting left and right velocity setpoints (VEL L=… R=…)
+#     • Changing control modes (MANUAL / LINE)
+#     • Enabling or disabling telemetry streaming
+#     • Returning robot status (GET STATUS)
+#     • Basic connection testing (PING, which returns PONG)
+#
+#  Commands are parsed using a lightweight line reader with buffer management.
+#  When telemetry is enabled, the task periodically transmits motor setpoints,
+#  mode, bump-mask status, and motor command state.
+#
+#  The task runs as a non-blocking state machine, yielding frequently to maintain
+#  responsiveness alongside other system tasks.
+
 import pyb
 from pyb import UART
 

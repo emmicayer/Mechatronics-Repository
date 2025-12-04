@@ -1,5 +1,17 @@
-from pyb import Pin, Timer
+## @file motor.py
+#  @brief DC motor driver abstraction using a PWM output, direction pin, and
+#  sleep pin to control an H-bridge.
+#
+#  This module defines the Motor class that:
+#    • Initializes PWM, direction, and nSLP (sleep) pins
+#    • Provides methods to enable and disable the motor driver
+#    • Accepts an effort command in the range [-100, 100] and maps it to PWM
+#      duty cycle and direction
+#
+#  It is designed to interface with Romi's two motors (left and right) through 
+#  task3_Control.
 
+from pyb import Pin, Timer
 
 class Motor:
     def __init__(self, PWM_pin, DIR_pin, nSLP_pin, TIM: Timer, CHAN):                # Initializes a motor object
