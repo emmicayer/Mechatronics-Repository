@@ -25,7 +25,6 @@
 #  according to their assigned priorities and periods by
 #  @c cotask.task_list.pri_sched() in the main loop.
 
-
 import gc
 import pyb
 from pyb import Timer, Pin, delay, I2C
