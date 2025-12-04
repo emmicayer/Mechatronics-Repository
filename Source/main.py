@@ -1,5 +1,5 @@
-## @file       main.py
-#  @brief      Top-level script which configures and runs all cooperative tasks.
+## @file main.py
+#  @brief Top-level script which configures and runs all cooperative tasks.
 #
 #  This file initializes the BNO055 IMU and restores (or generates) its
 #  calibration data, then creates all the @c Share and @c Queue objects used
