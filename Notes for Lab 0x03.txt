@@ -1,8 +1,0 @@
-Erin 10/28 
-7:24
-	I think the states for getting motor effort just immediately leave that state before getting motor effort. How to fix??
-7:41
-	I figured out how to fix it! Thanks chat.
-7:45 
-	Now our code is pretty much fully automated?? Obviously its sort of ugly tho :/ but we can fix that i think
-	Next -> we need to figure out how to get the right units for velocity and position
