@@ -79,11 +79,11 @@ def UserInput(shares):
                 dbg("state 1 -> 2 (speed menu)")
                 state = 2
             elif char == 'g':              # if char g is pressed send to state 3 (go state)
-                dbg("Go pressed: s_mot_cmd=1.0")
+                dbg("Go pressed: s_mot_cmd=1")
                 state = 5
             elif char == 's':
-                dbg("Stop pressed: s_mot_cmd=0.0")
-                s_mot_cmd.put(0.0)
+                dbg("Stop pressed: s_mot_cmd=0")
+                s_mot_cmd.put(0)
                 state = 6
             elif char == 'd':
                 DEBUG = not DEBUG
@@ -144,7 +144,7 @@ def UserInput(shares):
             yield 0
 
         elif state == 5:                              # automated testing loop through 0.0 to 100.0 speeds  
-            s_mot_cmd.put(1.0)
+            s_mot_cmd.put(1)
             dbg("Here I go!")
             state = 1
             #
@@ -157,7 +157,7 @@ def UserInput(shares):
             yield 0 
 
         elif state == 6:           
-            s_mot_cmd.put(0.0)                        # 0.0 command indicates motor to stop
+            s_mot_cmd.put(0)                        # 0.0 command indicates motor to stop
             dbg("Greetings from state 6! I should be Stopping!!")
             state = 1
             yield 0

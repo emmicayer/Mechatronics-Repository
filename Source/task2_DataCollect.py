@@ -52,10 +52,10 @@ def DataCollect(shares):
     last_pos_R = s_pos_R.get()
 
     while True:
-        if s_mot_cmd.get() == 1.0:
+        if s_mot_cmd.get() == 1:
             state = 2
         if state == 1:              # idle
-            if s_mot_cmd.get() == 1.0:
+            if s_mot_cmd.get() == 1:
            
                 # motor is turned on and should be collecting data 
 
@@ -197,11 +197,11 @@ def DataCollect(shares):
             except:
                 pass
 
-            if s_mot_cmd.get() == 0.0:
+            if s_mot_cmd.get() == 0:
                 state = 1
                 yield 0
 
-            if s_mot_cmd.get() == 0.0 and abs(vL) < 0.01 and abs(vR) < 0.01:
+            if s_mot_cmd.get() == 0 and abs(vL) < 0.01 and abs(vR) < 0.01:
                 state = 1
 
             yield 0

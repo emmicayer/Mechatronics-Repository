@@ -73,8 +73,8 @@ def BluetoothTask(shares):
     next_telem_ms = pyb.millis() + telem_period_ms
 
     while True:
-        if s_bump_mask != 0:
-            s_mot_cmd.put(0.0)
+        if s_bump_mask.get() != 0:
+            s_mot_cmd.put(0)
 
         if state == 0:
             if bt is None:
@@ -119,11 +119,11 @@ def BluetoothTask(shares):
                     bt.write(b"PONG\r\n")
 
                 elif cmd == "GO":
-                    s_mot_cmd.put(1.0)
+                    s_mot_cmd.put(1)
                     bt.write(b"GO\r\n")
 
                 elif cmd == "STOP":
-                    s_mot_cmd.put(0.0)
+                    s_mot_cmd.put(0)
                     bt.write(b"STOP\r\n")
 
                 elif cmd == "MODE" and len(parts) >= 2:
