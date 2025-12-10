@@ -43,6 +43,7 @@ from BNO055 import BNO055
 from task6_BumpSensor import TaskBump
 import os
 from task7_BluetoothControl import BluetoothTask
+from task8_TrackRun import TrackRun
 
 # Initialize IMU, read calibration data from file
 
@@ -99,7 +100,7 @@ if __name__ == "__main__":
     # Shares
     s_mot_eff_L = task_share.Share('f', thread_protect=False, name="Left Motor Effort Share")
     s_mot_eff_R = task_share.Share('f', thread_protect=False, name="Right Motor Effort Share")
-    s_mot_cmd = task_share.Share('B', thread_protect=False, name="Left Motor Command Share")
+    s_mot_cmd = task_share.Share('B', thread_protect=False, name="MLeft otor Command Share")
     s_pos_L = task_share.Share('f', thread_protect=False, name="Left Position Share")
     s_vel_L = task_share.Share('f', thread_protect=False, name="Left Velocity Share")
     s_time_L = task_share.Share('f', thread_protect=False, name="Left Time Share")
@@ -112,6 +113,8 @@ if __name__ == "__main__":
     s_xhat = task_share.Share('f', thread_protect=False, name="x hat Share")
     s_yhat = task_share.Share('f', thread_protect=False, name="y hat Share")
     s_bump_mask = task_share.Share('B', thread_protect=False, name="Bump Bitmask Share")
+    s_track_section = task_share.Share('B', thread_protect=False, name="Track Section Share")
+    s_line_follow_en = task_share.Share('B', thread_protect=False, name="Line Follow Enable Share")
 
     # Queues
     q_pos_L = task_share.Queue('f', 100, thread_protect=False, overwrite=False, name="Left Position Queue")
@@ -129,16 +132,18 @@ if __name__ == "__main__":
     task2 = cotask.Task(DataCollect, name="DataCollect", priority=2, period=25,
                         profile=True, trace=True, shares=(s_mot_cmd, q_pos_L, q_vel_L, q_time_L, q_pos_R, q_vel_R, q_time_R, s_pos_L, s_vel_L, s_time_L, s_mot_eff_L, s_pos_R, s_vel_R, s_time_R, s_mot_eff_R, imu, q_u, q_y))
     task3 = cotask.Task(run_L, name="LeftControl", priority=3, period=20,
-                        profile=True, trace=True, shares=(s_mot_cmd, s_mot_eff_L,s_pos_L, s_vel_L, s_time_L, s_new_setpoint_L, s_new_setpoint_R, s_bump_mask))
+                        profile=True, trace=True, shares=(s_mot_cmd, s_mot_eff_L,s_pos_L, s_vel_L, s_time_L, s_new_setpoint_L, s_new_setpoint_R, s_bump_mask, s_line_follow_en))
     task4 = cotask.Task(run_R, name="RightControl", priority=3, period=20,
-                        profile=True, trace=True, shares=(s_mot_cmd, s_mot_eff_R, s_pos_R, s_vel_R, s_time_R, s_new_setpoint_R, s_new_setpoint_L, s_bump_mask))
+                        profile=True, trace=True, shares=(s_mot_cmd, s_mot_eff_R, s_pos_R, s_vel_R, s_time_R, s_new_setpoint_R, s_new_setpoint_L, s_bump_mask, s_line_follow_en))
     task5 = cotask.Task(StateEstimation, name="StateEstimation", priority=1, period=20,
                         profile=True, trace=True, shares=(s_mot_cmd, s_mot_eff_L, s_mot_eff_R, s_new_setpoint_L, s_new_setpoint_R, s_xhat, s_yhat, q_u, q_y))
     task6 = cotask.Task(TaskBump, name="Bump", priority=4, period=10,
                         profile =True, trace = True, shares=(s_bump_mask,))
     task7 = cotask.Task(BluetoothTask, name="Bluetooth", priority=4, period=10,
                         profile=True, trace=True, shares=(s_mot_cmd, s_new_setpoint_L, s_new_setpoint_R, s_bump_mask) )
-    
+    task8 = cotask.Task(TrackRun, name="TrackRun", priority=2, period=20, 
+                        profile=True, trace=True, shares=(s_pos_L, s_pos_R, s_xhat, s_yhat, s_track_section, s_line_follow_en, s_new_setpoint_L, s_new_setpoint_R, s_mot_cmd))
+
     # Add tasks to task list
     cotask.task_list.append(task1)
     cotask.task_list.append(task2)
@@ -146,7 +151,8 @@ if __name__ == "__main__":
     cotask.task_list.append(task4)
     cotask.task_list.append(task5)
     cotask.task_list.append(task6)
-    cotask.task_list.append(task7)
+    cotask.task_list.append(task7)   
+    cotask.task_list.append(task8) 
 
     # Run the memory garbage collector
     gc.collect()

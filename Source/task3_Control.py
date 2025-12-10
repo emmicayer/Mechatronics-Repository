@@ -68,16 +68,19 @@ print("Calibration complete.")
 
 # calibrated = True
 
-def compute_steered_setpoints(s_new_setpoint_L, s_new_setpoint_R):          # Read sensor to steering PID and return cmds
-     pos_mm, strength = line_sensor.sense_line()
-     delta = steer_PID.update(pos_mm)
-     base = 0.5*(s_new_setpoint_L.get() + s_new_setpoint_R.get())
-     return (base - delta, base + delta)
+def compute_steered_setpoints(s_new_setpoint_L, s_new_setpoint_R, s_line_follow_en):          # Read sensor to steering PID and return cmds
+    if not s_line_follow_en.get():
+        return (s_new_setpoint_L.get(), s_new_setpoint_R.get())
+    pos_mm, strength = line_sensor.sense_line()
+    delta = steer_PID.update(pos_mm)
+    base = 0.5*(s_new_setpoint_L.get() + s_new_setpoint_R.get())
+    return (base - delta, base + delta)
+
 
 
 
 def run_L(shares):  
-        s_mot_cmd, s_mot_eff_L,s_pos_L, s_vel_L, s_time_L, s_new_setpoint_L, s_new_setpoint_R, s_bump_mask = shares
+        s_mot_cmd, s_mot_eff_L,s_pos_L, s_vel_L, s_time_L, s_new_setpoint_L, s_new_setpoint_R, s_bump_mask, s_line_follow_en = shares
         state_L = 1
         while True:
             if state_L == 1:                  # Motor off
@@ -119,7 +122,7 @@ def run_L(shares):
 
                 stepstart_L = pyb.micros()
                 while s_mot_cmd.get() == 1:
-                    vL_cmd, vR_cmd = compute_steered_setpoints(s_new_setpoint_L, s_new_setpoint_R)
+                    vL_cmd, vR_cmd = compute_steered_setpoints(s_new_setpoint_L, s_new_setpoint_R, s_line_follow_en)
                     s_new_setpoint_L.put(vL_cmd)
                     s_new_setpoint_R.put(vR_cmd)
                     
@@ -150,7 +153,7 @@ def run_L(shares):
 
                     yield 0
                 
-                # s_mot_cmd.put(0)
+                # s_mot_cmd.put(0.0)
                 mot_left.set_effort(0)
                 mot_left.disable()
                 state_L = 1
@@ -180,13 +183,13 @@ def run_L(shares):
                 # state_L = 1          
 
 def run_R(shares):  
-        s_mot_cmd, s_mot_eff_R, s_pos_R, s_vel_R, s_time_R, s_new_setpoint_R, s_new_setpoint_L, s_bump_mask = shares
+        s_mot_cmd, s_mot_eff_R, s_pos_R, s_vel_R, s_time_R, s_new_setpoint_R, s_new_setpoint_L, s_bump_mask, s_line_follow_en = shares
         state_R = 1
         while True:
             if state_R == 1:                  # Motor off
                 mot_right.set_effort(0)
                 mot_right.disable()
-                if s_mot_cmd.get() == 1:
+                if s_mot_cmd.get() == 1.0:
                     state_R = 2
                 yield 0
 
@@ -198,7 +201,7 @@ def run_R(shares):
                 if mask != 0:
                     mot_right.set_effort(0)         # or mot_right in run_R
                     mot_right.disable()
-                    s_mot_cmd.put(0)             # tell everyone we’re stopped
+                    s_mot_cmd.put(0.0)             # tell everyone we’re stopped
                     state_R = 1                    # back to idle (use your state var)
                     yield 0
                     continue
@@ -220,8 +223,8 @@ def run_R(shares):
                 steer_PID.reset(sp_R)
 
                 stepstart_R = pyb.micros()
-                while s_mot_cmd.get() == 1:
-                    vL_cmd, vR_cmd = compute_steered_setpoints(s_new_setpoint_L, s_new_setpoint_R)
+                while s_mot_cmd.get() == 1.0:
+                    vL_cmd, vR_cmd = compute_steered_setpoints(s_new_setpoint_L, s_new_setpoint_R, s_line_follow_en)
                     s_new_setpoint_L.put(vL_cmd)
                     s_new_setpoint_R.put(vR_cmd) 
 
@@ -277,7 +280,7 @@ def run_R(shares):
 #     state = 0
 #     while True:
 #         if state == 0:
-#             if s_mot_cmd.get() == 1:
+#             if s_mot_cmd.get() == 1.0:
 #                 steer_PID.set_setpoint(0.0)
 #                 state = 1
 #             yield 0 
@@ -288,7 +291,7 @@ def run_R(shares):
 #             base = 0.5*(s_new_setpoint_L.get() + s_new_setpoint_R())
 #             s_new_setpoint_L.put(base-delta)
 #             s_new_setpoint_R.put(base+delta)
-#             if s_mot_cmd.get() == 0:
+#             if s_mot_cmd.get() == 0.0:
 #                 state = 0
 #             yield 0
               
