@@ -77,7 +77,7 @@ def StateEstimation(shares):
 
 
     while True: # Only run if motor is on
-        if s_mot_cmd.get() != 1.0:
+        if s_mot_cmd.get() != 1:
             yield 0
             continue
 
