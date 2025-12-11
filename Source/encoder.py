@@ -64,9 +64,6 @@ class Encoder:
             return 0
 
     def zero(self):             # Sets the present encoder position to zero and causes future updates to measure with respect to the new zero position
-        # self.tim.counter()
-        # self.position = 0
-        # self.prev_count = 0
         self.tim.counter(0)     # <-- ACTUAL reset
         self.position = 0
         self.prev_count = 0

@@ -32,18 +32,10 @@ y_vals_pos_L = []                                 # Empty list for y values
 y_vals_vel_L = []                                 # Empty list for y values
 y_vals_pos_R = []                                 # Empty list for y values
 y_vals_vel_R = []                                 # Empty list for y values
-# x_label = ""                                # Empty string for x header label
-# y_label = ""                                # Empty string for y header label
+
 
 with open(filename, "r") as file:           # Open file as read only
     lines = file.readlines()                # Read line of file in string
-
-# Process header (line 1)
-# if len(lines) > 0:                          # Check that file isn't empty
-#     header = lines[0].strip().split(",")    # Rid of whitespace, split line
-#     if len(header) >= 2:                    # Check (at least) 2 entries
-#         x_label = header[0].strip()         # Makes 1st entry x_label
-#         y_label = header[1].strip()         # Makes 2nd entry y_label
 
 # Process data rows
 for line_num, line in enumerate(lines[1:], start=2):

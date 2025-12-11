@@ -114,8 +114,6 @@ def run_L(shares):
                 steer_PID.last_time = None
                 steer_PID.setpoint = 0.0
 
-                # effort_L = s_mot_eff_L.get()
-                # mot_left.set_effort(effort_L)
                 sp_L = s_new_setpoint_L.get()
                 left_PID.set_setpoint(sp_L)
                 steer_PID.reset(sp_L)
@@ -152,35 +150,11 @@ def run_L(shares):
                         continue
 
                     yield 0
-                
-                # s_mot_cmd.put(0.0)
+
                 mot_left.set_effort(0)
                 mot_left.disable()
                 state_L = 1
                 yield 0
-                # for i in range(11):
-                #     effort = i*10
-                #     s_mot_eff_L.put(effort)
-                #     mot_left.set_effort(effort)
-                #     enc_left.zero()
-                #     stepstart_L = pyb.millis()
-                #     for j in range(50):                   # waits for 1000 scheduler loops - change value to change wait time
-                #         enc_left.update()
-                #         pos_L = enc_left.get_position()
-                #         vel_L = enc_left.get_velocity()                # publish so DataCollect/plots can see motion
-                #         elapsed_L = pyb.elapsed_millis(stepstart_L)
-                #         s_pos_L.put(pos_L)
-                #         s_vel_L.put(vel_L)
-                #         s_time_L.put(elapsed_L)
-                #         yield 0
-                #     mot_left.set_effort(0)
-                #     for j in range(50):                   # waits for 1000 scheduler loops - change value to change wait time
-                #         yield 0
-
-  
-                # mot_left.set_effort(0)      # ADDED these three instead because for closed loop control, we want each one to be controlled separately       
-                # mot_left.disable()
-                # state_L = 1          
 
 def run_R(shares):  
         s_mot_cmd, s_mot_eff_R, s_pos_R, s_vel_R, s_time_R, s_new_setpoint_R, s_new_setpoint_L, s_bump_mask, s_line_follow_en = shares
@@ -216,8 +190,6 @@ def run_R(shares):
                 steer_PID.last_time = None
                 steer_PID.setpoint = 0.0
 
-                # effort_R = s_mot_eff_R.get()
-                # mot_right.set_effort(effort_R)
                 sp_R = s_new_setpoint_R.get()
                 right_PID.set_setpoint(sp_R)
                 steer_PID.reset(sp_R)
@@ -257,41 +229,4 @@ def run_R(shares):
                
                 mot_right.set_effort(0)
                 mot_right.disable()
-                state_R = 1  
- 
-
-# def line_follow(shares):
-#     s_mot_cmd, s_new_setpoint_L, s_new_setpoint_R = shares
-     
-#     print("Calibrating line sensor... hold over WHITE surface")
-#     pyb.delay(5000)             # holds for 5 seconds
-#     line_sensor.calibrate_white()
-
-#     print("Now hold over BLACK surface")
-#     pyb.delay(5000)
-#     line_sensor.calibrate_black()
-#     print("Calibration complete.")
-
-#     # while True:
-#     #     pos, strength = ls.sense_line()
-#     #     print("pos={:.2f} mm, strength={:.0f}".format(pos, strength))
-#     #     pyb.delay(100)
-
-#     state = 0
-#     while True:
-#         if state == 0:
-#             if s_mot_cmd.get() == 1.0:
-#                 steer_PID.set_setpoint(0.0)
-#                 state = 1
-#             yield 0 
-
-#         elif state == 1:
-#             pos_mm, strength = line_sensor.sense_line()
-#             delta = steer_PID.update(pos_mm)
-#             base = 0.5*(s_new_setpoint_L.get() + s_new_setpoint_R())
-#             s_new_setpoint_L.put(base-delta)
-#             s_new_setpoint_R.put(base+delta)
-#             if s_mot_cmd.get() == 0.0:
-#                 state = 0
-#             yield 0
-              
+                state_R = 1

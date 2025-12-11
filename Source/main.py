@@ -43,7 +43,7 @@ from BNO055 import BNO055
 from task6_BumpSensor import TaskBump
 import os
 from task7_BluetoothControl import BluetoothTask
-from task8_TrackRun import TrackRun
+#from task8_TrackRun import TrackRun
 
 # Initialize IMU, read calibration data from file
 
@@ -141,8 +141,8 @@ if __name__ == "__main__":
                         profile =True, trace = True, shares=(s_bump_mask,))
     task7 = cotask.Task(BluetoothTask, name="Bluetooth", priority=4, period=10,
                         profile=True, trace=True, shares=(s_mot_cmd, s_new_setpoint_L, s_new_setpoint_R, s_bump_mask) )
-    task8 = cotask.Task(TrackRun, name="TrackRun", priority=2, period=20, 
-                        profile=True, trace=True, shares=(s_pos_L, s_pos_R, s_xhat, s_yhat, s_track_section, s_line_follow_en, s_new_setpoint_L, s_new_setpoint_R, s_mot_cmd))
+    #task8 = cotask.Task(TrackRun, name="TrackRun", priority=2, period=20,
+    #                    profile=True, trace=True, shares=(s_pos_L, s_pos_R, s_xhat, s_yhat, s_track_section, s_line_follow_en, s_new_setpoint_L, s_new_setpoint_R, s_mot_cmd))
 
     # Add tasks to task list
     cotask.task_list.append(task1)
@@ -152,7 +152,7 @@ if __name__ == "__main__":
     cotask.task_list.append(task5)
     cotask.task_list.append(task6)
     cotask.task_list.append(task7)   
-    cotask.task_list.append(task8) 
+    #cotask.task_list.append(task8)
 
     # Run the memory garbage collector
     gc.collect()

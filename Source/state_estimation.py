@@ -95,28 +95,6 @@ def system_eqn_CL(t, x):
     yout = array([[wL],[wR],[x_pos],[y_pos],[th]])  # Log pose + wheel speeds
     return dxdt, yout
 
-# RK4 solver
-# def RK4_solver(fcn, x_0, tspan, tstep):
-#     t0, tf = tspan
-#     tout = arange(tspan[0], tspan[1]+tstep, tstep)
-#     xout = zeros([len(tout)+1,len(x_0)])                        # Each row holds a state vector for each time
-#     r = len(fcn(t0,x_0)[1])
-#     yout = zeros([len(tout),r])                                 
-#     xout[0][:] = x_0.T
-
-#     for n in range(len(tout)):
-#         x = xout[[n]].T                     # Do for every time step 
-                       
-#         k1, _ = fcn(tout[n], x)                   # Calls open or closed loop
-#         k2, _ = fcn(tout[n]+0.5*tstep, x+0.5*k1*tstep)
-#         k3, _ = fcn(tout[n]+0.5*tstep, x+0.5*k2*tstep)
-#         k4, y = fcn(tout[n]+tstep,x+k3*tstep)               
-#         xout[n+1] = xout[n] + (1/6)*(k1.T+2*k2.T+2*k3.T+k4.T)*tstep    # Each row holds a state vector, but the function returns the state vector as vertical
-#         yout[n] = y.T
-    
-#     return tout, yout
-
-# Open loop RK4 
 x_0 = array([ [0],
               [0] ])
 t_OL, y_OL = RK4_solver(system_eqn_OL, x_0, [0, 1], 0.01)
