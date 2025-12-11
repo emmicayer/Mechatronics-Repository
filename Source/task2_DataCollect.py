@@ -118,20 +118,10 @@ def DataCollect(shares):
             last_omega_L = omega_L
             last_omega_R = omega_R
 
-            # Estimate motor voltages using first-order model
-            # u ≈ (tau * domega + omega) / K
-            # vL = (tau * domega_L + omega_L) / K
-            # vR = (tau * domega_R + omega_R) / K
-
             effL = float(s_mot_eff_L.get())
             effR = float(s_mot_eff_R.get())
             vL = 0.01 * effL * v_bat
             vR = 0.01 * effR * v_bat
-         
-            # effL = float(s_mot_eff_L.get())
-            # effR = float(s_mot_eff_R.get())
-            # vL = 0.01*effL*v_bat
-            # vR = 0.01*effR*v_bat
 
             try: 
                 while q_u.any():
@@ -140,11 +130,6 @@ def DataCollect(shares):
                 pass
             q_u.put(vL)
             q_u.put(vR)
-
-            # dL = pos_L - last_pos_L
-            # last_pos_L = pos_L
-            # dR = pos_R - last_pos_R
-            # last_pos_R = pos_R
 
             sL_m += (2*3.1415*r_wheel/CPR_L)*dL
             sR_m += (2*3.1415*r_wheel/CPR_R)*dR
