@@ -1,7 +1,7 @@
 Encoder Plots
 ===============
 
-These four plots show the encoder position and velocity values versus time for both the left and right motors. 
+These four plots show the encoder position and velocity values versus time for both the left and right motors. These were generated with use of our controllers while testing the values of Kp and Ki. 
 
 Left Position
 .. figure:: _source/plot1_left_pos.png

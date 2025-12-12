@@ -3,24 +3,19 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-ME 405 Final Project documentation
+Mechatronics Term Project Documentation
 ================================
 
-This is the home page for the mecha-09 ME 405 Final Project Documentation!
-
-
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
+This homepage outlines the hardware, drivers, state machine, and relevent diagrams and plots for the control of Romi for the Fall 2025 Mechatronics game track. All written code and documentation was completed by Emmi Cayer and Erin Maxwell. 
 
 
 .. toctree::
-   :maxdepth: 40
+   :maxdepth: 20
    :caption: Contents:
 
 
    hardware
    drivers
-   test
+   state_machine
    taskandstatediagrams
    plots
