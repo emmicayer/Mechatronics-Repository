@@ -1,12 +1,6 @@
 Task 1: User Input
 =====
 
-.. automodule:: task1_UserInput
-   :members: task1_UserInput
-   :undoc-members:
-   :show-inheritance:
-
-
 This file implements a non-blocking state machine that listens for characters
 over the pyboard’s USB Virtual COM Port (USB_VCP). Through simple keyboard
 commands, the user can start and stop the robot, adjust left and right motor
