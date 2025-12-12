@@ -36,6 +36,6 @@ This is the game track that Romi was tasked to navigate. This game track include
 Encoder Implementation
 ======================
 
-.. literalinclude:: ../code/encoder.py
+.. literalinclude:: ../source/encoder.py
    :language: python
    :linenos:
