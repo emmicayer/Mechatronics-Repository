@@ -10,6 +10,8 @@ Left Position
    :height: 500px
    :alt: alternate text
 
+
+
 Left Velocity
 ----
 .. figure:: images/plot2_left_vel.png
@@ -17,12 +19,16 @@ Left Velocity
    :height: 500px
    :alt: alternate text
 
+
+
 Right Position
 ----
 .. figure:: images/plot3_right_pos.png
    :align: center
    :height: 500px
    :alt: alternate text
+
+
 
 Right Velocity
 ----
