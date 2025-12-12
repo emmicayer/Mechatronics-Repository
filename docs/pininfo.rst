@@ -7,7 +7,8 @@ Romi Pinout
 
 .. figure:: images/pinout.png
    :align: center
-   :height: 500px
+   :height: 400px
+   :width: 600px
    :alt: alternate text
 
 
