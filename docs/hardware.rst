@@ -29,3 +29,9 @@ For our line sensor, we decided to use the sensors found on the Pololu website: 
 Other Components
 ----
 
+In addition to the IMU and IR Sensor Array, there were a few other components that we needed for assembly. These are outlined below. 
+
+.. figure:: images/components.png
+   :align: center
+   :height: 500px
+   :alt: alternate text
