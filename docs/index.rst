@@ -15,7 +15,7 @@ documentation for details.
 
 
 .. toctree::
-   :maxdepth: 20
+   :maxdepth: 40
    :caption: Contents:
 
 
