@@ -16,38 +16,7 @@ Python classes to run the motors, encoders, IR sensor, and IMU
    IMU
    state_estimation
 
-Motor Driver
--------------
 
-.. automodule:: motor
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-The file motor.py works with the motors using separate PWN and direction imputs in order to enable, disable, and drive the two motors on Romi independently. This file works with any motor inputs, ours being the following for our left and right motors:
-
-mot_left = Motor(Pin.cpu.B1, Pin.cpu.B14, Pin.cpu.B15, Timer(3, freq = 1000, 4)) 
-
-mot_right = Motor(Pin.cpu.B0, Pin.cpu.C3, Pin.cpu.C2, Timer(3, freq = 1000, 3))
-
-These are two objects in the Motor class, one for each wheel. This configuration allows easy use of Motor for any combination of Romi pins and timers. These motor specification call outs are inputted into main.py for our Romi chassis and wire configuration specifically.
-
-
-Encoder Driver
--------
-
-.. automodule:: encoder
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-The motor class in encoder.py runs one update step on the encoder’s timer counter to keep track of the change in count of the encoder and returns the position with the most recently updated value, as well as a calculated velocity value. It also includes a definition to zero each encoder object. Our encoder objects are as follows:
-
-enc_left = Encoder(Timer(5, freq = 1000), Pin.cpu,A0, Pin.cpu.A1) 
-
-enc_right = Encoder(Timer(1, freq = 1000), Pin.cpu,A8, Pin.cpu.A9) 
-
-In this driver, we have a continuous loop of updating the encoder, which allows for up to date values of the encoder to calculate the position of Romi based on values of the encoder and associated time stamps. 
 
 
 
