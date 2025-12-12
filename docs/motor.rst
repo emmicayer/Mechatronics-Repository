@@ -5,6 +5,10 @@ The file motor.py works with the motors using separate PWN and direction imputs 
 
 These are two objects in the Motor class, one for each wheel. This configuration allows easy use of Motor for any combination of Romi pins and timers. These motor specification call outs are inputted into main.py for our Romi chassis and wire configuration specifically.
 
+
+Motor Driver Code
+----
+
 .. literalinclude:: ../Source/motor.py
    :language: python
    :linenos:
