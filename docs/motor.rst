@@ -1,7 +1,7 @@
 Motor Driver
 =====
 
-The file motor.py works with the motors using separate PWN and direction imputs in order to enable, disable, and drive the two motors on Romi independently. This file works with any motor inputs, ours being the following for our left and right motors:
+The file motor.py works with the motors using separate PWN and direction imputs in order to enable, disable, and drive the two motors on Romi independently. This file works with any motor object inputs. 
 
 mot_left = Motor(Pin.cpu.B1, Pin.cpu.B14, Pin.cpu.B15, Timer(3, freq = 1000, 4)) 
 
