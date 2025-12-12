@@ -21,7 +21,7 @@
 #                              the robot state (e.g., @c x_hat and @c y_hat ).
 #  @li @c TaskBump           – Monitors bump sensors and updates a bump
 #                              bitmask share used by other tasks.
-#
+
 #  All tasks are kept in the global @c cotask.task_list and are scheduled
 #  according to their assigned priorities and periods by
 #  @c cotask.task_list.pri_sched() in the main loop.
@@ -142,8 +142,13 @@ if __name__ == "__main__":
                         profile =True, trace = True, shares=(s_bump_mask,))
     task7 = cotask.Task(BluetoothTask, name="Bluetooth", priority=4, period=10,
                         profile=True, trace=True, shares=(s_mot_cmd, s_new_setpoint_L, s_new_setpoint_R, s_bump_mask) )
+<<<<<<< Updated upstream
     #task8 = cotask.Task(TrackRun, name="TrackRun", priority=2, period=20,
     #                    profile=True, trace=True, shares=(s_pos_L, s_pos_R, s_xhat, s_yhat, s_track_section, s_line_follow_en, s_new_setpoint_L, s_new_setpoint_R, s_mot_cmd))
+=======
+    task8 = cotask.Task(TrackRun, name="TrackRun", priority=2, period=20, 
+                        profile=True, trace=True, shares=(s_pos_L, s_pos_R, s_xhat, s_yhat, s_track_section, s_line_follow_en, s_new_setpoint_L, s_new_setpoint_R, s_mot_cmd, s_bump_mask,))
+>>>>>>> Stashed changes
 
     # Add tasks to task list
     cotask.task_list.append(task1)

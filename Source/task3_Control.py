@@ -266,4 +266,5 @@ def run_R(shares):
 #             if s_mot_cmd.get() == 0.0:
 #                 state = 0
 #             yield 0
+              
 
