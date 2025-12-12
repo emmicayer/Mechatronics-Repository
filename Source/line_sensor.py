@@ -57,9 +57,6 @@ class LineSensor:
                 for i, v in enumerate(vals):
                     accumulator[i] += v
             return [a // self.oversample for a in accumulator]
-                # v = [ADC.read() for adc in self.adc_pins]               # Reads current adc values from every sensor. v = voltage levels from each line sensor for that instant
-                # accumulator = [a+b for a, b in zip(accumulator, v)]     # Pairs each total a with a new reading b and adds reading to accumulator for that sensor. This builds up sums of readings over multiple iterations to divide later to get the average
-                # vals = [a // self.oversample for a in accumulator]      # Divides samples to get average. // divides and truncates
         
         def _ema_update(self, raw_vals):
             if not self._have_init:
@@ -90,12 +87,6 @@ class LineSensor:
                 if t > 1.0: t = 1.0
                 norm.append(int(round(t * 1000.0)))
             return norm
-            #     if b > w:                    # Check if hi is less than lo
-            #         lo, hi = 0.0, 4095.0
-            #     t = (r - lo) / (hi - lo)   # Compute normalized ratio of raw reading. lo = 0, hi = 1
-            #     t = 1.0 - max(0.0, min(1.0, t)) # Invert so darker is larger
-            #     norm.append(int(round(t*1000.0))) # Multiply by 1000 to get in range and round to nearest integer. Add to norm list
-            # return norm                         # Return completed list of norm values
 
         def calibrate_white(self, samples=80):                          # Reads sensors repeatedly with white surface
             mins = [65535]*self.length                                  # creates matrix with values, aka [65525, 65535 ... , 65535]
@@ -106,9 +97,6 @@ class LineSensor:
                         mins[i] = x
             self.white = [max(0,m) for m in mins]
             print(self.white)
-                # v = [ADC.read() for adc in self.adc_pins]               # Creates matrix with readings, [3910, 3965, ...]     
-                # mins = [min(m,x) for m, x in zip(mins, v)]              # Keeps lowest value seen to avoid outliers
-                # self.white = [max(0,m) for m in mins]                   # Stores calibration results
 
         def calibrate_black(self, samples=80):        
             maxs = [0]*self.length                       # creates matrix with values, aka [65525, 65535 ... , 65535]
@@ -119,9 +107,6 @@ class LineSensor:
                         maxs[i] = x
             self.black = [min(4095, m) for m in maxs]
             print(self.black)
-                # v = [ADC.read() for adc in self.adc_pins]       # Creates matrix with readings, [3910, 3965, ...]     
-                # maxs = [max(m,x) for m, x in zip(maxs, v)]      # Keeps lowest value seen to avoid outliers
-                # self.black = [max(4095,m) for m in maxs]           # Stores calibration results
         
         def centroid(self):
             vals = self.read_normalized_data()          # Return sensor readings normalized 1-1000 (black = 1000, white = 0)
@@ -129,7 +114,6 @@ class LineSensor:
             if total <= 1e-9:                   # Check if total is near zero and returns zero
                 return self._last_pos, 0.0
             pos = sum(v*x for v,x in zip(vals, self.pos_mm))/total      # v is normalized darkness reading from one sensor, x is physical position in mm, zip pairs each reading with its sensor position. Sum computes moment, and we divide by the total to normalize
-            # pos = (sum (sensor value x sensor position)) / (sum sensor values)
             return pos, total              # Tells us sthat line is pos mm to the left(-) or right(+) of the array center
         
         def sense_line(self):

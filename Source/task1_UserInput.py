@@ -53,7 +53,6 @@ def UserInput(shares):
             b"  l  : set left motor speed\r\n"
             b"  0-9, t  : specify motor speed\r\n"
             b"  d  : toggle debug on/off\r\n"
-            # b"  v  : show current efforts and mot_cmd\r\n"
             b"\r\n")
     vcp.write(help_txt)
 
@@ -147,13 +146,6 @@ def UserInput(shares):
             s_mot_cmd.put(1)
             dbg("Here I go!")
             state = 1
-            #
-            #
-            # s_new_setpoint_L.put(0.0005)
-            # s_new_setpoint_R.put(0.0005)
-            #
-            #
-            # # s_mot_eff_L.put(0.0)
             yield 0 
 
         elif state == 6:           
