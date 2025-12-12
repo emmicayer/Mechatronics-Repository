@@ -183,15 +183,18 @@ def StateEstimation(shares):
             s_psihat.put(psi_hat)  # estimated heading
         except Exception:
             pass
+        #
+        # try:
+        #     print("[SE DEBUG] s_hat={:.3f}, psi_hat={:.3f}".format(s_hat, psi_hat))
+        # except:
+        #     pass
 
         # Debug output
         # if now_t >= next_print:
         #     next_print = now_t + 2000000  # 2 seconds
         #     try:
-        #         print(("SE-DT|MAT dt={:.2f}ms | vL_meas={:+.3f} vR_meas={:+.3f} "
-        #                "gz={:+.3f} yaw_w={:+.3f} | v_hat={:+.3f} yaw_hat={:+.3f} theta_hat={:+.2f}")
-        #               .format(1e3*dt, vL_meas, vR_meas, gz, yaw_rate_wheels,
-        #                       v_hat, yaw_rate_hat, theta_hat))
+        #         print("[SE] dt={:.3f} s_hat={:.3f} psi_hat={:.3f}"
+        #               .format(dt, s_hat, psi_hat))
         #     except Exception:
         #         pass
 
