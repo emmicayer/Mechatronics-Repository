@@ -6,7 +6,7 @@ This file outlines the organization of Emmi Cayer and Erin Maxwell's Mechatronic
 The folder labeled "docs" includes all files for the implimentation of readthedocs, which is a comprehensive website outlining our task organization, hardware, and drivers. This website can be found at: https://mechatronics-repository.readthedocs.io/.
 
 The folder labeled "Source" holds all source code used to impliment Romi's behavior on the track. These include driver files, task files, and other support files. The driver files included in our repository are:
-* 'controller.py'
+* `controller.py`
 * 'encoder.py'
 * 'encoder.py'
 * 'line_sensor.py'
