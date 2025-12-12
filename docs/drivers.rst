@@ -1,4 +1,4 @@
-Hardware Drivers
+Hardware and Action Drivers
 ================
 
 Python classes to run the motors, encoders, IR sensor, and IMU
@@ -22,27 +22,13 @@ Encoder
    :show-inheritance:
 
 
-IMU
-----
+Controller
+-----------
 
-.. automodule:: IMU_I2C
-   :members: IMU_I2C
-   :undoc-members:
-   :show-inheritance:
-
-
-IR Sensor
-----------
-
-.. automodule:: ir_sensor
+.. automodule:: controller
    :members:
    :undoc-members:
    :show-inheritance:
 
-IR Sensor Array
----------------
 
-.. automodule:: sensor_array
-   :members:
-   :undoc-members:
-   :show-inheritance:
+

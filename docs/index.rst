@@ -15,10 +15,12 @@ documentation for details.
 
 
 .. toctree::
-   :maxdepth: 12
+   :maxdepth: 40
    :caption: Contents:
 
 
    hardware
-   hardware_drivers
-   action_drivers
+   drivers
+   test
+   taskandstatediagrams
+   plots
