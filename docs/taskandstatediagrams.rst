@@ -2,14 +2,6 @@ Task and State Diagrams
 =================
 
 
-Left Position
-----
-.. figure:: images/plot1_left_pos.png
-   :align: center
-   :height: 500px
-   :alt: alternate text
-
-
 Task Diagram
 ----
 .. figure:: images/taskdiagram.png
