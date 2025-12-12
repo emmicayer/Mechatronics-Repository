@@ -3,6 +3,10 @@
 Hardware
 =============
 
+Nucleo-64
+----
+
+We used a Nucleo-64 board from ST Microelectronics to complete the task of a line-following and state-estimating Romi. To do this, we employed a simple custom board called a Shoe of Brian which sits below the Nucleo and houses a USB connector. This USB connector allows for mounting some of the microcontroller's flash memory as a USB file system. This microcontroller board comes with pins to configure as GPIO, timers, and many other purposes. Code is flashed through the USB to this microcontroller for easy programming updates. 
 
 IMU
 ----
