@@ -23,3 +23,5 @@ documentation for details.
    hardware_drivers
    action_drivers
    test
+   taskandstatediagrams
+   plots
