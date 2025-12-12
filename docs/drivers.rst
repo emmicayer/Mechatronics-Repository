@@ -71,4 +71,15 @@ IMU Driver
 Our IMU driver, named BNO005 after the model of our IMU, wraps the BNO005 sensor registers and opertation modes and handles initialization, chip-ID verification, and mode changes. It includes methods to read the fused Euler angles (which includes heading, roll, and pitch) in radians, read angular velocity (which includes gyro x, y, and z) in rad/s, and read and write calibration coefficients. 
 
 
+State Estimation Driver
+-----------
 
+.. automodule:: state_estimation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+ Our State-estimation helper functions for Romi provides 
+ kinematic relationships and utility calculations used for
+ validating or interpreting estimator behavior. This driver focuses on simple analytical relationships and supporting reference calculations for estimator outputs. 
+  
