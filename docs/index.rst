@@ -6,7 +6,7 @@
 Mechatronics Term Project Documentation
 ================================
 
-This homepage outlines the hardware, drivers, state machine, and relevent diagrams and plots for the control of Romi for the Fall 2025 Mechatronics game track. 
+This homepage outlines the hardware, drivers, state machine, and relevent diagrams and plots for the control of Romi for the Fall 2025 Mechatronics game track. All written code and documentation was completed by Emmi Cayer and Erin Maxwell. 
 
 
 .. toctree::
