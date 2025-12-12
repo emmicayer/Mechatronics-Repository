@@ -25,6 +25,6 @@ Game Track
 ----
 .. figure:: images/gametrack.png
    :align: center
-   :height: 200px
+   :height: 300px
    :width: 600px
    :alt: alternate text
