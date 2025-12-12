@@ -22,6 +22,5 @@ documentation for details.
    hardware
    drivers
    state_machine
-   test
    taskandstatediagrams
    plots
