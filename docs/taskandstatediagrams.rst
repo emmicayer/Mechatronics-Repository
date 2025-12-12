@@ -5,7 +5,6 @@ Task and State Diagrams
 
 Task Diagram
 ----
-
 .. figure:: images/taskdiagram.png
    :align: center
    :height: 100px
