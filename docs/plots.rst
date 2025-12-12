@@ -7,26 +7,26 @@ Left Position
 ----
 .. figure:: images/plot1_left_pos.png
    :align: center
-   :height: 100px
+   :height: 500px
    :alt: alternate text
 
 Left Velocity
 ----
 .. figure:: images/plot2_left_vel.png
    :align: center
-   :height: 100px
+   :height: 500px
    :alt: alternate text
 
 Right Position
 ----
 .. figure:: images/plot3_right_pos.png
    :align: center
-   :height: 100px
+   :height: 500px
    :alt: alternate text
 
 Right Velocity
 ----
 .. figure:: images/plot4_right_vel.png
    :align: center
-   :height: 100px
+   :height: 500px
    :alt: alternate text
