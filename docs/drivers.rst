@@ -6,7 +6,7 @@ Python classes to run the motors, encoders, IR sensor, and IMU
 
 
 .. toctree::
-   :maxdepth: 20
+   :maxdepth: 1
    :caption: Contents:
 
    motor
