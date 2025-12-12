@@ -15,20 +15,9 @@ This homepage outlines the hardware, drivers, state machine, and relevent diagra
 
    hardware
    drivers
-   drivers/motor
-   drivers/encoder
-   drivers/controller
-   drivers/line_sensor
-   drivers/IMU
-   drivers/state_estimation
-   state_machine
-   state_machine/task1
-   state_machine/task2
-   state_machine/task3_4
-   state_machine/task5
-   state_machine/task6
-   state_machine/task7
-   state_machine/task8
+   statemachine
+   supportcode
+   pininfo
    taskandstatediagrams
    plots
 
