@@ -31,3 +31,11 @@ This is the game track that Romi was tasked to navigate. This game track include
    :height: 300px
    :width: 600px
    :alt: alternate text
+
+
+Encoder Implementation
+======================
+
+.. literalinclude:: ../code/encoder.py
+   :language: python
+   :linenos:
