@@ -10,7 +10,7 @@ This homepage outlines the hardware, drivers, state machine, and relevent diagra
 
 
 .. toctree::
-   :maxdepth: 70
+   :maxdepth: 20
    :caption: Contents:
 
 
