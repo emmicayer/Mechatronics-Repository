@@ -1,7 +1,7 @@
 Hardware and Action Drivers
 ================
 
-Python classes to run the motors, encoders, IR sensor, and IMU
+We designed and implemented six drivers as classes. These classes have objects defined in main, and are called out and utilized by tasks in our task scheduler. Each driver performs a very different action in our code, and is explained in detail in each respective file. 
 
 
 
