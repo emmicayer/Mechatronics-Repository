@@ -229,9 +229,6 @@ def run_R(shares):
                
                 mot_right.set_effort(0)
                 mot_right.disable()
-<<<<<<< Updated upstream
-                state_R = 1
-=======
                 state_R = 1  
  
 
@@ -270,4 +267,4 @@ def run_R(shares):
 #                 state = 0
 #             yield 0
               
->>>>>>> Stashed changes
+
