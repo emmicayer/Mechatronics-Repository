@@ -229,4 +229,45 @@ def run_R(shares):
                
                 mot_right.set_effort(0)
                 mot_right.disable()
+<<<<<<< Updated upstream
                 state_R = 1
+=======
+                state_R = 1  
+ 
+
+# def line_follow(shares):
+#     s_mot_cmd, s_new_setpoint_L, s_new_setpoint_R = shares
+     
+#     print("Calibrating line sensor... hold over WHITE surface")
+#     pyb.delay(5000)             # holds for 5 seconds
+#     line_sensor.calibrate_white()
+
+#     print("Now hold over BLACK surface")
+#     pyb.delay(5000)
+#     line_sensor.calibrate_black()
+#     print("Calibration complete.")
+
+#     # while True:
+#     #     pos, strength = ls.sense_line()
+#     #     print("pos={:.2f} mm, strength={:.0f}".format(pos, strength))
+#     #     pyb.delay(100)
+
+#     state = 0
+#     while True:
+#         if state == 0:
+#             if s_mot_cmd.get() == 1.0:
+#                 steer_PID.set_setpoint(0.0)
+#                 state = 1
+#             yield 0 
+
+#         elif state == 1:
+#             pos_mm, strength = line_sensor.sense_line()
+#             delta = steer_PID.update(pos_mm)
+#             base = 0.5*(s_new_setpoint_L.get() + s_new_setpoint_R())
+#             s_new_setpoint_L.put(base-delta)
+#             s_new_setpoint_R.put(base+delta)
+#             if s_mot_cmd.get() == 0.0:
+#                 state = 0
+#             yield 0
+              
+>>>>>>> Stashed changes
