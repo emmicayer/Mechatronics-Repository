@@ -16,10 +16,10 @@ This homepage outlines the hardware, drivers, state machine, and relevent diagra
    hardware
    drivers
    statemachine
-   supportcode
-   pininfo
    taskandstatediagrams
    plots
+   supportcode
+   pininfo
 
 
 Game Track
