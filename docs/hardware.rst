@@ -24,3 +24,8 @@ IR Sensor Array
    :show-inheritance:
 
 For our line sensor, we decided to use the sensors found on the Pololu website: https://www.pololu.com/product/4213. These are 4 mm X 13 line sensors with a max board current of220 mA and a max range of 40 mm. They are the analog output type, which allows for a continuous and detailed data output signal that is directly proportional to the physical quantity being measured. Their formal name on the Pololu website is QTR-HD-13A. 
+
+
+Other Components
+----
+
