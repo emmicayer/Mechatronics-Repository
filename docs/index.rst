@@ -13,7 +13,6 @@ This homepage outlines the hardware, drivers, state machine, and relevent diagra
    :maxdepth: 20
    :caption: Contents:
 
-
    hardware
    drivers
    drivers/motor
@@ -30,7 +29,6 @@ This homepage outlines the hardware, drivers, state machine, and relevent diagra
    state_machine/task6
    state_machine/task7
    state_machine/task8
-   
    taskandstatediagrams
    plots
 
