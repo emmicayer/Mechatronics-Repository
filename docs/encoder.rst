@@ -6,6 +6,8 @@ The motor class in encoder.py runs one update step on the encoder’s timer coun
 
 In this driver, we have a continuous loop of updating the encoder, which allows for up to date values of the encoder to calculate the position of Romi based on values of the encoder and associated time stamps. 
 
+Encoder Driver Code
+----
 
 .. literalinclude:: ../Source/encoder.py
    :language: python
