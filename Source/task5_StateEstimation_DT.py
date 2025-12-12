@@ -54,7 +54,7 @@ def _column2(): return np.zeros((2, 1))
 # State estimation task
 def StateEstimation(shares):
     (s_mot_cmd, s_mot_eff_L, s_mot_eff_R, s_new_setpoint_L, s_new_setpoint_R,
-     s_xhat, s_yhat, q_u, q_y) = shares
+     s_shat, s_psihat, q_u, q_y) = shares
 
     # Initialize state, input, helper variables
     xhat = _column4()   # Initial state estimate
@@ -127,51 +127,72 @@ def StateEstimation(shares):
             yield 0
             continue
 
+        y_vec = np.array([[sL_m],
+                          [sR_m],
+                          [theta_m],
+                          [gz]])
+
         # Find wheel linear velocities from displacement
-        if prev_sL is None: # Assume zero velocities if no previous data
-            vL_meas = 0.0
-            vR_meas = 0.0
-        else:
-            vL_meas = (sL_m - prev_sL) / dt
-            vR_meas = (sR_m - prev_sR) / dt
-        prev_sL, prev_sR = sL_m, sR_m
-
-        # Compute yaw rate from wheel speeds 
-        yaw_rate_wheels = (-vL_meas + vR_meas) / w
-
-        # Measurement vector from obsever
-        y_vec = np.array([[vL_meas],
-                          [vR_meas],
-                          [gz],
-                          [yaw_rate_wheels]])
+        # if prev_sL is None: # Assume zero velocities if no previous data
+        #     vL_meas = 0.0
+        #     vR_meas = 0.0
+        # else:
+        #     vL_meas = (sL_m - prev_sL) / dt
+        #     vR_meas = (sR_m - prev_sR) / dt
+        # prev_sL, prev_sR = sL_m, sR_m
+        #
+        # # Compute yaw rate from wheel speeds
+        # yaw_rate_wheels = (-vL_meas + vR_meas) / w
+        #
+        # # Measurement vector from obsever
+        # y_vec = np.array([[vL_meas],
+        #                   [vR_meas],
+        #                   [gz],
+        #                   [yaw_rate_wheels]])
 
         # discrete observer update
         xhat = np.dot(A_D, xhat) + np.dot(B_Du, u) + np.dot(B_Dy, y_vec)
 
-        # Get outputs and publish them
-        v_hat = float(xhat[2, 0])           # Forward velocity estimate
-        yaw_rate_hat = float(xhat[3, 0])    # Yaw rate estimate
-        theta_hat += yaw_rate_hat * dt      # Integrate yaw rate to get heading
+        omegaL_hat = float(xhat[0, 0])
+        omegaR_hat = float(xhat[1, 0])
+        s_hat = float(xhat[2, 0])  # *** THIS IS THE CENTER PATH LENGTH ***
+        psi_hat = float(xhat[3, 0])
+
+
+        # # Get outputs and publish them
+        # v_hat = float(xhat[2, 0])           # Forward velocity estimate
+        # yaw_rate_hat = float(xhat[3, 0])    # Yaw rate estimate
+        # theta_hat += yaw_rate_hat * dt      # Integrate yaw rate to get heading
 
         # Publish estimates to shares and queues
+        # try:
+        #     s_xhat.put(v_hat)
+        # except Exception:
+        #     pass
+        # try:
+        #     s_yhat.put(theta_hat)
+        # except Exception:
+        #     pass
+
         try:
-            s_xhat.put(v_hat)
+            s_shat.put(s_hat)  # estimated displacement
         except Exception:
             pass
+
         try:
-            s_yhat.put(theta_hat)
+            s_psihat.put(psi_hat)  # estimated heading
         except Exception:
             pass
 
         # Debug output
-        if now_t >= next_print:
-            next_print = now_t + 2000000  # 2 seconds
-            try:
-                print(("SE-DT|MAT dt={:.2f}ms | vL_meas={:+.3f} vR_meas={:+.3f} "
-                       "gz={:+.3f} yaw_w={:+.3f} | v_hat={:+.3f} yaw_hat={:+.3f} theta_hat={:+.2f}")
-                      .format(1e3*dt, vL_meas, vR_meas, gz, yaw_rate_wheels,
-                              v_hat, yaw_rate_hat, theta_hat))
-            except Exception:
-                pass
+        # if now_t >= next_print:
+        #     next_print = now_t + 2000000  # 2 seconds
+        #     try:
+        #         print(("SE-DT|MAT dt={:.2f}ms | vL_meas={:+.3f} vR_meas={:+.3f} "
+        #                "gz={:+.3f} yaw_w={:+.3f} | v_hat={:+.3f} yaw_hat={:+.3f} theta_hat={:+.2f}")
+        #               .format(1e3*dt, vL_meas, vR_meas, gz, yaw_rate_wheels,
+        #                       v_hat, yaw_rate_hat, theta_hat))
+        #     except Exception:
+        #         pass
 
         yield 0

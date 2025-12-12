@@ -163,7 +163,7 @@ def run_R(shares):
             if state_R == 1:                  # Motor off
                 mot_right.set_effort(0)
                 mot_right.disable()
-                if s_mot_cmd.get() == 1.0:
+                if s_mot_cmd.get() == 1:
                     state_R = 2
                 yield 0
 
@@ -175,7 +175,7 @@ def run_R(shares):
                 if mask != 0:
                     mot_right.set_effort(0)         # or mot_right in run_R
                     mot_right.disable()
-                    s_mot_cmd.put(0.0)             # tell everyone we’re stopped
+                    s_mot_cmd.put(0)             # tell everyone we’re stopped
                     state_R = 1                    # back to idle (use your state var)
                     yield 0
                     continue
@@ -195,7 +195,7 @@ def run_R(shares):
                 steer_PID.reset(sp_R)
 
                 stepstart_R = pyb.micros()
-                while s_mot_cmd.get() == 1.0:
+                while s_mot_cmd.get() == 1:
                     vL_cmd, vR_cmd = compute_steered_setpoints(s_new_setpoint_L, s_new_setpoint_R, s_line_follow_en)
                     s_new_setpoint_L.put(vL_cmd)
                     s_new_setpoint_R.put(vR_cmd) 
