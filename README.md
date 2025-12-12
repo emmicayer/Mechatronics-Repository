@@ -6,12 +6,12 @@ This file outlines the organization of Emmi Cayer and Erin Maxwell's Mechatronic
 The folder labeled "docs" includes all files for the implimentation of readthedocs, which is a comprehensive website outlining our task organization, hardware, and drivers. This website can be found at: https://mechatronics-repository.readthedocs.io/.
 
 The folder labeled "Source" holds all source code used to impliment Romi's behavior on the track. These include driver files, task files, and other support files. The driver files included in our repository are:
-* `controller.py`
-* `encoder.py`
-* `encoder.py`
-* `line_sensor.py`
-* `motor.py`
-* `state_estimation.py`
+* `controller.py` contains a closed-loop velocity controller operates the two Romi motors. 
+* `encoder.py` runs one update step on the encoder’s timer counter to keep track of the change in count of the encoder and returns the position with the most recently updated value, as well as a calculated velocity value. 
+* `BNO005.py` wraps the BNO005 sensor registers and opertation modes and handles initialization, chip-ID verification, and mode changes.
+* `line_sensor.py` manages an array of ADC-based reflective sensors.
+* `motor.py` works with the motors using separate PWN and direction imputs in order to enable, disable, and drive the two motors on Romi independently.
+* `state_estimation.py` impliments an observed to estimate Romi forward velocity, yaw rate, and heading. 
 
 Next, we have our task files. These are the tasks implimented as finite state machines that act in a cooperative multitasking fashion through `main.py`. 
 * `task1_UserInput.py`
