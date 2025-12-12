@@ -50,3 +50,10 @@ task7_BluetoothControl State Diagram
    :align: center
    :height: 500px
    :alt: alternate text
+
+task8_TrackRun State Diagram
+----
+.. figure:: images/task8_diagram.png
+   :align: center
+   :height: 500px
+   :alt: alternate text
