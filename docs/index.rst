@@ -45,10 +45,3 @@ This is the game track that Romi was tasked to navigate. This game track include
    :alt: alternate text
 
 
-Encoder Implementation
-----
-
-
-.. literalinclude:: ../Source/encoder.py
-   :language: python
-   :linenos:
