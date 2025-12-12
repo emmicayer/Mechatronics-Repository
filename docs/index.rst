@@ -24,7 +24,7 @@ This homepage outlines the hardware, drivers, state machine, and relevent diagra
 Game Track
 ----
 
-This is the game track that Romi was tasked to navigate. This game track includes multiple sections that can be navigated purely with line following, a split path, checkpoints, a square wave section, a garage, and a wall to hit and navigate around. In our `task8_TrackRun.py`, we section off the track into half line following sections and half state estimation sections. 
+This is the game track that Romi was tasked to navigate. This game track includes multiple sections that can be navigated purely with line following, a split path, checkpoints, a square wave section, a garage, and a wall to hit and navigate around. To complete this task, we section off the track into half line following sections and half state estimation sections. 
 
 .. figure:: images/gametrack.png
    :align: center
