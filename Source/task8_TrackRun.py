@@ -2,7 +2,7 @@
 import pyb
 
 def TrackRun(shares):
-    (s_pos_L, s_pos_R, s_xhat, s_yhat, s_track_section, s_line_follow_en, s_new_setpoint_L, s_new_setpoint_R, s_mot_cmd, s_bump_mask) = shares
+    (s_pos_L, s_pos_R, s_shat, s_psihat, s_track_section, s_line_follow_en, s_new_setpoint_L, s_new_setpoint_R, s_mot_cmd, s_bump_mask,) = shares
    
     # Constants
     r_wheel = 0.035 # [m]
