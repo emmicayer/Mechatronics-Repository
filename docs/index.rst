@@ -19,3 +19,11 @@ This homepage outlines the hardware, drivers, state machine, and relevent diagra
    state_machine
    taskandstatediagrams
    plots
+
+
+Game Track
+----
+.. figure:: gametrack.png
+   :align: center
+   :height: 500px
+   :alt: alternate text
