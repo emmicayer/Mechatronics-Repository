@@ -152,13 +152,15 @@ def DataCollect(shares):
             q_y.put(theta)
             q_y.put(gz)
 
-            if pyb.millis() >= next_print_time:
-                try:
-                    print("DC u=[{:.3f},{:.3f}] y=[sL={:.4f}, sR={:.4f}, th={:.3f}, gz={:.3f}]"
-                        .format(vL, vR, sL_m, sR_m, theta, gz))
-                except Exception:
-                    pass
-                next_print_time = pyb.millis() + 1000
+            # if pyb.millis() >= next_print_time:
+            #     try:
+            #         print("DC u=[{:.3f},{:.3f}] y=[sL={:.4f}, sR={:.4f}, th={:.3f}, gz={:.3f}]"
+            #             .format(vL, vR, sL_m, sR_m, theta, gz))
+            #     except Exception:
+            #         pass
+            #     next_print_time = pyb.millis() + 1000
+
+
 
             # linL = r_wheel * omega_L
             # linR = r_wheel * omega_R
@@ -176,11 +178,11 @@ def DataCollect(shares):
             #     next_print_time = pyb.millis() + 1000
 
             # Bluetooth steaming of data collection
-            line = "{},{},{},{},{},{}\r\n".format(time_L, pos_L, vel_L, time_R, pos_R, vel_R)
-            try:
-                BT.write(line.encode())
-            except:
-                pass
+            # line = "{},{},{},{},{},{}\r\n".format(time_L, pos_L, vel_L, time_R, pos_R, vel_R)
+            # try:
+            #     BT.write(line.encode())
+            # except:
+            #     pass
 
             if s_mot_cmd.get() == 0:
                 state = 1

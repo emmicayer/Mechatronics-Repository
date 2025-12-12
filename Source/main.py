@@ -129,19 +129,19 @@ if __name__ == "__main__":
     # Task creation 
     task1 = cotask.Task(UserInput, name="UserInput", priority=0, period=0,                        # creating task1 object of cotask Task class. tasks are objects in main
                         profile=True, trace=True, shares=(s_mot_cmd, s_mot_eff_R, s_mot_eff_L, s_new_setpoint_L, s_new_setpoint_R))         # put shares and queues under shares=(,)
-    task2 = cotask.Task(DataCollect, name="DataCollect", priority=2, period=25,
+    task2 = cotask.Task(DataCollect, name="DataCollect", priority=3, period=20,
                         profile=True, trace=True, shares=(s_mot_cmd, q_pos_L, q_vel_L, q_time_L, q_pos_R, q_vel_R, q_time_R, s_pos_L, s_vel_L, s_time_L, s_mot_eff_L, s_pos_R, s_vel_R, s_time_R, s_mot_eff_R, imu, q_u, q_y))
-    task3 = cotask.Task(run_L, name="LeftControl", priority=3, period=20,
+    task3 = cotask.Task(run_L, name="LeftControl", priority=1, period=40,
                         profile=True, trace=True, shares=(s_mot_cmd, s_mot_eff_L,s_pos_L, s_vel_L, s_time_L, s_new_setpoint_L, s_new_setpoint_R, s_bump_mask, s_line_follow_en))
-    task4 = cotask.Task(run_R, name="RightControl", priority=3, period=20,
+    task4 = cotask.Task(run_R, name="RightControl", priority=1, period=40,
                         profile=True, trace=True, shares=(s_mot_cmd, s_mot_eff_R, s_pos_R, s_vel_R, s_time_R, s_new_setpoint_R, s_new_setpoint_L, s_bump_mask, s_line_follow_en))
-    task5 = cotask.Task(StateEstimation, name="StateEstimation", priority=1, period=20,
+    task5 = cotask.Task(StateEstimation, name="StateEstimation", priority=4, period=20,
                         profile=True, trace=True, shares=(s_mot_cmd, s_mot_eff_L, s_mot_eff_R, s_new_setpoint_L, s_new_setpoint_R, s_shat, s_psihat, q_u, q_y))
-    task6 = cotask.Task(TaskBump, name="Bump", priority=4, period=10,
+    task6 = cotask.Task(TaskBump, name="Bump", priority=5, period=10,
                         profile =True, trace = True, shares=(s_bump_mask,))
-    task7 = cotask.Task(BluetoothTask, name="Bluetooth", priority=4, period=10,
+    task7 = cotask.Task(BluetoothTask, name="Bluetooth", priority=5, period=10,
                         profile=True, trace=True, shares=(s_mot_cmd, s_new_setpoint_L, s_new_setpoint_R, s_bump_mask) )
-    task8 = cotask.Task(TrackRun, name="TrackRun", priority=2, period=20, 
+    task8 = cotask.Task(TrackRun, name="TrackRun", priority=2, period=100,
                         profile=True, trace=True, shares=(s_pos_L, s_pos_R, s_shat, s_psihat, s_track_section, s_line_follow_en, s_new_setpoint_L, s_new_setpoint_R, s_mot_cmd, s_bump_mask,))
 
     # Add tasks to task list
