@@ -1,4 +1,4 @@
-PC Scrpit Support File
+PC Script Support File
 =====
 
 PC Script reads CSV data from PuTTY logs and plots motor position and velocity verus time. This script loads a CSV file containing time, positon, and velocity measurements for 
