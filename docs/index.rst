@@ -20,8 +20,7 @@ documentation for details.
 
 
    hardware
-   hardware_drivers
-   action_drivers
+   drivers
    test
    taskandstatediagrams
    plots
