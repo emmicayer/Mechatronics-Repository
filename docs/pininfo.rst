@@ -5,16 +5,24 @@ Romi Pinout and Wiring Diagram
 Romi Pinout
 ----
 
-.. figure:: images/.pinout.png
+.. figure:: images/pinout.png
    :align: center
    :height: 500px
    :alt: alternate text
 
 
-Romi Wiring Diagram
+Romi Pin Header Detail
 ----
 
-.. figure:: images/.wiring.png
+.. figure:: images/headerdetail.png
+   :align: center
+   :height: 500px
+   :alt: alternate text
+
+Romi Wiring Harness
+----
+
+.. figure:: images/wiringharness.png
    :align: center
    :height: 500px
    :alt: alternate text
