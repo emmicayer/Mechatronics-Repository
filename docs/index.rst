@@ -37,6 +37,6 @@ Encoder Implementation
 ----
 
 
-.. literalinclude:: ../source/encoder.py
+.. literalinclude:: ../Source/encoder.py
    :language: python
    :linenos:
