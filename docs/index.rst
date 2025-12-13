@@ -26,6 +26,7 @@ Below are the contents for our designed hardware, drivers, state machines, and r
    plots
    supportcode
    pininfo
+   videos
 
 
 
