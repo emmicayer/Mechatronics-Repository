@@ -1,6 +1,7 @@
 Videos
 =====
 
+Below are two videos from our code and hardware implimentation. The first video uses purely line following, and the second video includes a state estimation aspect that allows for Romi estimation of global positioning. 
 
 
 Line Following
