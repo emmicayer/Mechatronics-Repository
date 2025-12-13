@@ -1,6 +1,7 @@
 Task and State Diagrams
 =================
 
+Below are our task diagram for our overall code task structure as well as state diagrams showing the finite state machines for each task. 
 
 Task Diagram
 ----
