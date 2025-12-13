@@ -31,11 +31,3 @@ Line Following and State Estimation
            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
            allowfullscreen>
    </iframe>
-
-
-
-
-.. figure:: images/linefollowingstateestimation.mov
-   :align: center
-   :height: 500px
-   :alt: alternate text
